@@ -1,0 +1,19 @@
+{
+  "name": "aigul-evgeniy-wedding-invite",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "start": "npm run build && tsx server/server.ts",
+    "preview": "vite preview --host 127.0.0.1",
+    "links": "node scripts/create-guest-links.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.2.0"
+  }
+}
