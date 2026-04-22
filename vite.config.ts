@@ -1,5 +1,6 @@
 import { defineConfig, type Connect } from "vite";
-import { saveRsvpResponse } from "./server/rsvpStore";
+import type { ServerResponse } from "node:http";
+import { getGuestByToken, saveRsvpResponse } from "./server/inviteStore";
 
 export default defineConfig({
   server: {
@@ -7,12 +8,29 @@ export default defineConfig({
   },
   plugins: [
     {
-      name: "wedding-rsvp-api",
+      name: "wedding-api",
       configureServer(server) {
+        server.middlewares.use("/api/guest", async (request, response) => {
+          if (request.method !== "GET") {
+            sendJson(response, 405, { error: "Method not allowed" });
+            return;
+          }
+
+          try {
+            const url = new URL(request.url ?? "", "http://localhost");
+            const guest = await getGuestByToken(url.searchParams.get("token") ?? "");
+
+            sendJson(response, 200, { guest });
+          } catch (error) {
+            sendJson(response, 400, {
+              error: error instanceof Error ? error.message : "Could not load guest"
+            });
+          }
+        });
+
         server.middlewares.use("/api/rsvp", async (request, response) => {
           if (request.method !== "POST") {
-            response.statusCode = 405;
-            response.end(JSON.stringify({ error: "Method not allowed" }));
+            sendJson(response, 405, { error: "Method not allowed" });
             return;
           }
 
@@ -20,16 +38,11 @@ export default defineConfig({
             const body = await readJsonBody(request);
             const saved = await saveRsvpResponse(body);
 
-            response.setHeader("Content-Type", "application/json; charset=utf-8");
-            response.end(JSON.stringify({ ok: true, savedAt: saved.submittedAt }));
+            sendJson(response, 200, { ok: true, savedAt: saved.submittedAt });
           } catch (error) {
-            response.statusCode = 400;
-            response.setHeader("Content-Type", "application/json; charset=utf-8");
-            response.end(
-              JSON.stringify({
-                error: error instanceof Error ? error.message : "Could not save response"
-              })
-            );
+            sendJson(response, 400, {
+              error: error instanceof Error ? error.message : "Could not save response"
+            });
           }
         });
       }
@@ -45,4 +58,10 @@ async function readJsonBody(request: Connect.IncomingMessage): Promise<unknown> 
   }
 
   return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+}
+
+function sendJson(response: ServerResponse, statusCode: number, body: unknown): void {
+  response.statusCode = statusCode;
+  response.setHeader("Content-Type", "application/json; charset=utf-8");
+  response.end(JSON.stringify(body));
 }

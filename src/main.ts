@@ -1,5 +1,5 @@
 import { weddingDetails } from "./data";
-import { getCurrentGuest } from "./guest";
+import { fetchGuest, getGuestToken } from "./guest";
 import { renderInvitation, renderSuccessMessage } from "./render";
 import type { RsvpPayload } from "./types";
 import "./styles.css";
@@ -10,17 +10,22 @@ if (!app) {
   throw new Error("Root element #app was not found.");
 }
 
-const guest = getCurrentGuest(window.location.search);
+const root = app;
 
-app.innerHTML = renderInvitation({
-  details: weddingDetails,
-  guest,
-  origin: window.location.origin,
-  pathname: window.location.pathname
-});
+void init();
 
-startCountdown(weddingDetails.dateIso);
-bindRsvpForm();
+async function init(): Promise<void> {
+  const token = getGuestToken(window.location.search);
+  const guest = await fetchGuest(token);
+
+  root.innerHTML = renderInvitation({
+    details: weddingDetails,
+    guest
+  });
+
+  startCountdown(weddingDetails.dateIso);
+  bindRsvpForm();
+}
 
 function startCountdown(dateIso: string): void {
   const target = new Date(dateIso).getTime();

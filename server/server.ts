@@ -2,7 +2,7 @@ import { createReadStream } from "node:fs";
 import { stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { extname, join, normalize, resolve } from "node:path";
-import { saveRsvpResponse } from "./rsvpStore";
+import { getGuestByToken, saveRsvpResponse } from "./inviteStore";
 
 const port = Number(process.env.PORT ?? 4173);
 const publicDir = resolve(process.cwd(), "dist");
@@ -15,6 +15,25 @@ const server = createServer(async (request, response) => {
 
   const url = new URL(request.url, `http://${request.headers.host ?? "localhost"}`);
 
+  if (url.pathname === "/api/guest") {
+    if (request.method !== "GET") {
+      response.writeHead(405, { "Content-Type": "application/json; charset=utf-8" });
+      response.end(JSON.stringify({ error: "Method not allowed" }));
+      return;
+    }
+
+    try {
+      const guest = await getGuestByToken(url.searchParams.get("token") ?? "");
+      response.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+      response.end(JSON.stringify({ guest }));
+    } catch (error) {
+      response.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
+      response.end(JSON.stringify({ error: error instanceof Error ? error.message : "Could not load guest" }));
+    }
+
+    return;
+  }
+
   if (url.pathname === "/api/rsvp") {
     if (request.method !== "POST") {
       response.writeHead(405, { "Content-Type": "application/json; charset=utf-8" });
@@ -23,7 +42,12 @@ const server = createServer(async (request, response) => {
     }
 
     try {
-      const saved = await saveRsvpResponse(await readJsonBody(request), request);
+      const saved = await saveRsvpResponse(
+        await readJsonBody(request),
+        Array.isArray(request.headers["user-agent"])
+          ? request.headers["user-agent"].join(" ")
+          : (request.headers["user-agent"] ?? "")
+      );
       response.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
       response.end(JSON.stringify({ ok: true, savedAt: saved.submittedAt }));
     } catch (error) {

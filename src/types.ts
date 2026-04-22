@@ -1,6 +1,8 @@
 export type Guest = {
   readonly token: string;
   readonly name: string;
+  readonly photoUrl?: string;
+  readonly isKnown?: boolean;
 };
 
 export type WeddingDetails = {

@@ -1,15 +1,11 @@
-import { createGuestUrl } from "./guest";
 import type { Guest, WeddingDetails } from "./types";
 
 type RenderInput = {
   readonly details: WeddingDetails;
   readonly guest: Guest;
-  readonly origin: string;
-  readonly pathname: string;
 };
 
-export function renderInvitation({ details, guest, origin, pathname }: RenderInput): string {
-  const personalUrl = createGuestUrl(origin, pathname, guest.token);
+export function renderInvitation({ details, guest }: RenderInput): string {
   const guestName = escapeHtml(guest.name);
 
   return `
@@ -90,6 +86,8 @@ export function renderInvitation({ details, guest, origin, pathname }: RenderInp
           и привычка держаться за руки даже в самый обычный день.
         </p>
       </section>
+
+      ${guest.photoUrl ? renderGuestPhoto(guest.photoUrl, guestName) : ""}
 
       <section class="card cats" aria-labelledby="cats-title">
         <img class="small-art cats-art" src="/generated-cats.png" alt="Рисованные кошечки Айгуль и Евгения" loading="lazy" />
@@ -181,13 +179,6 @@ export function renderInvitation({ details, guest, origin, pathname }: RenderInp
         </div>
       </section>
 
-      <section class="card links" aria-labelledby="links-title">
-        <div>
-          <p class="eyebrow">Персональная ссылка</p>
-          <h2 id="links-title">Эта ссылка уже с именем гостя</h2>
-          <p>${personalUrl}</p>
-        </div>
-      </section>
     </main>
   `;
 }
@@ -202,6 +193,17 @@ function capitalize(value: string): string {
   }
 
   return value.charAt(0).toLocaleUpperCase("ru-RU") + value.slice(1);
+}
+
+function renderGuestPhoto(photoUrl: string, guestName: string): string {
+  return `
+    <section class="card guest-memory" aria-labelledby="guest-memory-title">
+      <img class="small-art guest-memory__image" src="${escapeAttribute(photoUrl)}" alt="Персональная памятная картинка для ${guestName}" loading="lazy" />
+      <p class="eyebrow">маленький подарок</p>
+      <h2 id="guest-memory-title">Памятная картинка для вас</h2>
+      <p>Мы добавили её специально к вашей персональной ссылке.</p>
+    </section>
+  `;
 }
 
 function escapeHtml(value: string): string {
