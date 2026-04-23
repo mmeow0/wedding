@@ -1,4 +1,4 @@
-import { saveRsvpResponse } from "../server/inviteStore";
+import { saveRsvpResponse } from "../server/inviteStore.js";
 
 type ApiRequest = {
   readonly method?: string;

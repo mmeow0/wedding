@@ -1,5 +1,5 @@
-import { guests } from "../src/data";
-import type { Guest, RsvpPayload } from "../src/types";
+import { guests } from "../src/data.js";
+import type { Guest, RsvpPayload } from "../src/types.js";
 
 export type StoredRsvpResponse = RsvpPayload & {
   readonly id?: string;

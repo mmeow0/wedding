@@ -2,7 +2,7 @@ import { createReadStream } from "node:fs";
 import { stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { extname, join, normalize, resolve } from "node:path";
-import { getGuestByToken, saveRsvpResponse } from "./inviteStore";
+import { getGuestByToken, saveRsvpResponse } from "./inviteStore.js";
 
 const port = Number(process.env.PORT ?? 4173);
 const publicDir = resolve(process.cwd(), "dist");

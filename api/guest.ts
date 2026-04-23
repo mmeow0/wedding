@@ -1,4 +1,4 @@
-import { getGuestByToken } from "../server/inviteStore";
+import { getGuestByToken } from "../server/inviteStore.js";
 
 type ApiRequest = {
   readonly method?: string;
