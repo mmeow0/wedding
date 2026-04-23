@@ -94,7 +94,7 @@ export function renderInvitation({ details, guest }: RenderInput): string {
         <p class="soft-title">wedding</p>
         <p class="couple-name">${details.bride} & ${details.groom}</p>
         <img class="hero-art" src="/generated-couple.png" alt="Рисованная Айгуль и Евгений в свадебном образе" />
-        <h1 id="hero-title">Мы женимся!</h1>
+        <h1 id="hero-title">Мы женимся</h1>
         <p class="hero__message">${capitalize(guestName)}, будем счастливы разделить этот день вместе.</p>
         <div class="hero__actions" aria-label="Основные действия">
           <a class="button button--primary" href="#rsvp">заполнить анкету</a>
