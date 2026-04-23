@@ -8,7 +8,7 @@ export const weddingDetails: WeddingDetails = {
   guestArrivalTime: "18:00",
   city: "Москва",
   venueName: "ресторан Боярский",
-  address: "Москва, ресторан Боярский",
+  address: "Даниловская наб., 6А, Москва",
   mapUrl: "https://yandex.ru/maps/-/CPClyG8P",
   dressCode: ["молочный", "шалфей", "пудровый", "графит", "шампань"],
   timeline: [
@@ -18,7 +18,7 @@ export const weddingDetails: WeddingDetails = {
       note: "обнимемся, познакомимся и начнём вечер с бокала"
     },
     {
-      time: "18:30",
+      time: "19:00",
       title: "Ужин",
       note: "красивая еда, тосты и много разговоров"
     },

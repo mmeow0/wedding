@@ -7,6 +7,86 @@ type RenderInput = {
 
 export function renderInvitation({ details, guest }: RenderInput): string {
   const guestName = escapeHtml(guest.name);
+  const storyCards = [
+    {
+      image: "/history-01.png",
+      alt: "Рисованные Айгуль, Евгений и Ильдар в тёплом путешествии к морю",
+      title: "Всё началось с Геленджика",
+      text: "Одна поездка к морю с Ильдаром вдруг стала началом большой истории: там мы с Женей подружились, много смеялись и совсем не заметили, как познакомились по-настоящему.",
+    },
+    {
+      image: "/history-02.png",
+      alt: "Рисованные Айгуль и Евгений держатся за руки на вечерней прогулке",
+      title: "Потом стало просто хорошо вместе",
+      text: "Мы всё чаще виделись с Женей и Каримом, зависали, болтали обо всём на свете, а где-то между шутками и долгими вечерами поняли, что уже влюбились. Тогда Женя и предложил встречаться.",
+    },
+    {
+      image: "/history-03.png",
+      alt: "Рисованные Айгуль и Евгений на фоне Петербурга",
+      title: "Первое большое «вместе» — Питер",
+      text: "Одной из первых наших больших совместных поездок стал Петербург: ветер с Невы, красивые фасады, долгие прогулки и чувство, что рядом именно тот человек.",
+    },
+    {
+      image: "/history-04.png",
+      alt: "Рисованный Евгений копает траншею на даче, а Айгуль рядом",
+      title: "Романтика бывает и с лопатой",
+      text: "В нашей истории есть не только путешествия, но и очень земная любовь: Женя копает нам траншею на даче, а я в этот момент ещё сильнее убеждаюсь, что надёжность тоже очень романтична.",
+    },
+    {
+      image: "/history-05.png",
+      alt: "Рисованные Айгуль и Евгений в путешествии по Беларуси",
+      title: "Первая заграница — Беларусь",
+      text: "Первый совместный выезд за границу случился совсем рядом, но запомнился особенно: мы были счастливы уже от самого факта, что открываем новые места вместе.",
+    },
+    {
+      image: "/history-06.png",
+      alt: "Рисованные Айгуль и Евгений с белой голубоглазой Кощькой в Казани",
+      title: "Из Казани мы вернулись не одни",
+      text: "В Казани нас ждала отдельная судьбоносная встреча: там мы забрали бездомного котёнка, которую назвали Кощькой. Так в нашей истории стало ещё больше любви, лапок и ответственности.",
+    },
+    {
+      image: "/history-07.png",
+      alt: "Рисованные Айгуль и Евгений в путешествии по Грузии и Армении",
+      title: "Грузия и Армения",
+      text: "Мы ездили по красивым дорогам, смотрели горы, ловили солнце, ели что-то очень вкусное и в который раз понимали: путешествовать друг с другом нам удивительно легко.",
+    },
+    {
+      image: "/history-08.png",
+      alt: "Рисованные Айгуль и Евгений празднуют первый Новый год вместе",
+      title: "Первый Новый год вдвоём",
+      text: "Наш первый Новый год вместе был особенно тёплым: с домашним уютом, ожиданием чудес и тем самым ощущением, когда хочется, чтобы так было ещё много-много лет.",
+    },
+    {
+      image: "/history-09.png",
+      alt: "Рисованная Кощька рядом с арбузом",
+      title: "Кощька и арбуз",
+      text: "У любой большой истории есть свои маленькие легенды. Одна из наших — это Кощька с арбузом: кадр, который невозможно не любить и невозможно забыть.",
+    },
+    {
+      image: "/history-10.png",
+      alt: "Рисованные Айгуль и Евгений в Японии среди сакуры",
+      title: "Япония и то самое «да»",
+      text: "Весной мы полетели в Японию на цветение сакуры, и там, на горячих источниках, Женя сделал мне предложение. С этого момента наша история зазвучала совсем по-новому.",
+    },
+    {
+      image: "/history-11.png",
+      alt: "Рисованные Айгуль и Евгений в тёплом путешествии по Турции",
+      title: "А потом была Турция",
+      text: "Ещё одно наше счастливое «вместе» случилось в Турции: тёплый воздух, яркие улицы, море впечатлений и привычное чувство дома, потому что дом уже давно друг в друге.",
+    },
+    {
+      image: "/history-12.png",
+      alt: "Рисованные Айгуль и Евгений забирают чёрную кошечку Снежу из московского подвала",
+      title: "А потом у нас появилась Снежа",
+      text: "После Турции в нашей жизни случилась ещё одна важная встреча: уже в Москве мы забрали из подвала чёрного бездомного котёнка Снежу. Так наша семья стала ещё больше и ещё пушистее.",
+    },
+    {
+      image: "/history-13.png",
+      alt: "Рисованные Айгуль и Евгений со своими котами",
+      title: "Теперь мы дружная кото-семья",
+      text: "И вот так шаг за шагом, поездка за поездкой, шутка за шуткой мы пришли сюда — уже не просто вдвоём, а со своими хвостатыми спутниками. Теперь мы настоящая дружная кото-семья.",
+    },
+  ];
 
   return `
     <main>
@@ -15,10 +95,11 @@ export function renderInvitation({ details, guest }: RenderInput): string {
         <p class="couple-name">${details.bride} & ${details.groom}</p>
         <img class="hero-art" src="/generated-couple.png" alt="Рисованная Айгуль и Евгений в свадебном образе" />
         <h1 id="hero-title">Мы женимся!</h1>
-        <p class="hero__message">${capitalize(guestName)}, будем счастливы разделить этот день с вами.</p>
+        <p class="hero__message">${capitalize(guestName)}, будем счастливы разделить этот день вместе.</p>
         <div class="hero__actions" aria-label="Основные действия">
           <a class="button button--primary" href="#rsvp">заполнить анкету</a>
           <a class="button button--secondary" href="#details">детали дня</a>
+          <a class="button button--secondary" href="#history">наша история</a>
         </div>
       </section>
 
@@ -87,8 +168,6 @@ export function renderInvitation({ details, guest }: RenderInput): string {
         </p>
       </section>
 
-      ${guest.photoUrl ? renderGuestPhoto(guest.photoUrl, guestName) : ""}
-
       <section class="card cats" aria-labelledby="cats-title">
         <img class="small-art cats-art" src="/generated-cats.png" alt="Рисованные кошечки Айгуль и Евгения" loading="lazy" />
         <p class="eyebrow">мяу-комитет</p>
@@ -109,9 +188,9 @@ export function renderInvitation({ details, guest }: RenderInput): string {
       </section>
 
       <section class="card gifts" aria-labelledby="gifts-title">
-        <img class="small-art gift-art" src="/generated-gift.png" alt="Рисованный конверт с лентой, цветами и кольцами" loading="lazy" />
+        <img class="small-art gift-art" src="${escapeAttribute(guest.photoUrl ?? "/generated-gift.png")}" alt="${guest.photoUrl ? `Персональная памятная картинка для ${guestName}` : "Рисованный конверт с лентой, цветами и кольцами"}" loading="lazy" />
         <p class="eyebrow">see you...</p>
-        <h2 id="gifts-title">Самый желанный подарок — ваш приход.</h2>
+        <h2 id="gifts-title">Самый желанный подарок — видеть вас рядом.</h2>
         <p>
           А если захотите порадовать нас чем-то ещё, нам будет особенно приятно получить
           подарок в конверте: так он точно станет частью наших общих планов.
@@ -179,6 +258,31 @@ export function renderInvitation({ details, guest }: RenderInput): string {
         </div>
       </section>
 
+      <section class="card history" id="history" aria-labelledby="history-title">
+        <p class="eyebrow">наша история</p>
+        <h2 id="history-title">Самые любимые главы, которые привели нас к этому дню.</h2>
+        <p class="history__intro">
+          Нам захотелось собрать здесь маленькую ленту воспоминаний: про места, где мы смеялись,
+          влюблялись, заботились друг о друге и постепенно собирали нашу общую жизнь.
+        </p>
+        <div class="history__list">
+          ${storyCards
+            .map(
+              (item, index) => `
+                <article class="history-card">
+                  <img class="history-card__art" src="${item.image}" alt="${item.alt}" loading="lazy" />
+                  <div class="history-card__content">
+                    <span class="history-card__index">${String(index + 1).padStart(2, "0")}</span>
+                    <h3>${item.title}</h3>
+                    <p>${item.text}</p>
+                  </div>
+                </article>
+              `
+            )
+            .join("")}
+        </div>
+      </section>
+
     </main>
   `;
 }
@@ -193,17 +297,6 @@ function capitalize(value: string): string {
   }
 
   return value.charAt(0).toLocaleUpperCase("ru-RU") + value.slice(1);
-}
-
-function renderGuestPhoto(photoUrl: string, guestName: string): string {
-  return `
-    <section class="card guest-memory" aria-labelledby="guest-memory-title">
-      <img class="small-art guest-memory__image" src="${escapeAttribute(photoUrl)}" alt="Персональная памятная картинка для ${guestName}" loading="lazy" />
-      <p class="eyebrow">маленький подарок</p>
-      <h2 id="guest-memory-title">Памятная картинка для вас</h2>
-      <p>Мы добавили её специально к вашей персональной ссылке.</p>
-    </section>
-  `;
 }
 
 function escapeHtml(value: string): string {

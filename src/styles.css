@@ -269,6 +269,7 @@ h3 {
 
 .intro p,
 .story p,
+.history p,
 .cats p,
 .dress p,
 .gifts p,
@@ -436,7 +437,7 @@ h3 {
 }
 
 .story,
-.guest-memory,
+.history,
 .cats,
 .gifts,
 .dress,
@@ -459,6 +460,75 @@ h3 {
 .story-art {
   border: 10px solid rgb(255 253 244 / 78%);
   border-radius: 34px;
+}
+
+.history {
+  text-align: center;
+}
+
+.history__intro {
+  max-width: 330px;
+  margin: 0 auto 24px;
+}
+
+.history__list {
+  display: grid;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.history-card {
+  display: grid;
+  gap: 16px;
+  border-radius: 32px;
+  background: rgb(255 253 244 / 78%);
+  color: var(--ink-strong);
+  padding: 14px;
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.history-card__art {
+  width: 100%;
+  border: 8px solid rgb(255 253 244 / 86%);
+  border-radius: 26px;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.history-card__content {
+  display: grid;
+  gap: 8px;
+}
+
+.history-card__index {
+  display: inline-flex;
+  width: fit-content;
+  min-width: 54px;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+  padding: 6px 12px;
+  font-family: "Pangolin", "Neucha", cursive;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.history-card h3 {
+  margin: 0;
+  color: var(--blue-deep);
+  font-family: "Pangolin", "Neucha", cursive;
+  font-size: 1.28rem;
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.history-card p {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 0.94rem;
+  line-height: 1.6;
 }
 
 .gift-art {
