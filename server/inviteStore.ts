@@ -1,11 +1,10 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
 import { guests } from "../src/data";
 import type { Guest, RsvpPayload } from "../src/types";
 
 export type StoredRsvpResponse = RsvpPayload & {
   readonly id?: string;
   readonly guestId?: string;
+  readonly storage: "supabase";
   readonly submittedAt: string;
   readonly userAgent: string;
 };
@@ -18,7 +17,6 @@ type SupabaseGuestRow = {
   readonly photo_url: string | null;
 };
 
-const responsesPath = resolve(process.cwd(), "data", "rsvp-responses.json");
 const defaultPhotoBucket = "guest-photos";
 
 export async function getGuestByToken(token: string): Promise<Guest> {
@@ -50,52 +48,48 @@ export async function getGuestByToken(token: string): Promise<Guest> {
 export async function saveRsvpResponse(input: unknown, userAgent = ""): Promise<StoredRsvpResponse> {
   const parsed = parseRsvpResponse(input, userAgent);
 
-  if (isSupabaseConfigured()) {
-    const guestRows = await supabaseRequest<Array<{ readonly id: string; readonly name: string }>>(
-      `/rest/v1/wedding_guests?token=eq.${encodeURIComponent(parsed.token)}&select=id,name&limit=1`
-    );
-    const guest = guestRows[0];
-
-    const savedRows = await supabaseRequest<
-      Array<{
-        readonly id: string;
-        readonly guest_id: string | null;
-        readonly submitted_at: string;
-      }>
-    >("/rest/v1/wedding_rsvps", {
-      method: "POST",
-      headers: {
-        Prefer: "return=representation"
-      },
-      body: JSON.stringify({
-        guest_id: guest?.id ?? null,
-        guest_token: parsed.token,
-        guest_name: guest?.name ?? parsed.guestName,
-        attendance: parsed.attendance,
-        drinks: parsed.drinks,
-        allergens: parsed.allergens,
-        menu_notes: parsed.menuNotes,
-        song: parsed.song,
-        message: parsed.message,
-        user_agent: parsed.userAgent
-      })
-    });
-    const saved = savedRows[0];
-
-    return {
-      ...parsed,
-      id: saved?.id,
-      guestId: saved?.guest_id ?? undefined,
-      submittedAt: saved?.submitted_at ?? parsed.submittedAt
-    };
+  if (!isSupabaseConfigured()) {
+    throw new Error("Supabase env vars are not configured.");
   }
 
-  if (isVercelRuntime()) {
-    throw new Error("Supabase is not configured for production RSVP storage.");
-  }
+  const guestRows = await supabaseRequest<Array<{ readonly id: string; readonly name: string }>>(
+    `/rest/v1/wedding_guests?token=eq.${encodeURIComponent(parsed.token)}&select=id,name&limit=1`
+  );
+  const guest = guestRows[0];
 
-  await saveLocalRsvp(parsed);
-  return parsed;
+  const savedRows = await supabaseRequest<
+    Array<{
+      readonly id: string;
+      readonly guest_id: string | null;
+      readonly submitted_at: string;
+    }>
+  >("/rest/v1/wedding_rsvps", {
+    method: "POST",
+    headers: {
+      Prefer: "return=representation"
+    },
+    body: JSON.stringify({
+      guest_id: guest?.id ?? null,
+      guest_token: parsed.token,
+      guest_name: guest?.name ?? parsed.guestName,
+      attendance: parsed.attendance,
+      drinks: parsed.drinks,
+      allergens: parsed.allergens,
+      menu_notes: parsed.menuNotes,
+      song: parsed.song,
+      message: parsed.message,
+      user_agent: parsed.userAgent
+    })
+  });
+  const saved = savedRows[0];
+
+  return {
+    ...parsed,
+    id: saved?.id,
+    guestId: saved?.guest_id ?? undefined,
+    storage: "supabase",
+    submittedAt: saved?.submitted_at ?? parsed.submittedAt
+  };
 }
 
 function parseRsvpResponse(input: unknown, userAgent: string): StoredRsvpResponse {
@@ -117,27 +111,10 @@ function parseRsvpResponse(input: unknown, userAgent: string): StoredRsvpRespons
     menuNotes: optionalString(input.menuNotes),
     song: optionalString(input.song),
     message: optionalString(input.message),
+    storage: "supabase",
     submittedAt: new Date().toISOString(),
     userAgent
   };
-}
-
-async function saveLocalRsvp(response: StoredRsvpResponse): Promise<void> {
-  const existing = await readLocalResponses();
-  const next = [...existing, response];
-
-  await mkdir(dirname(responsesPath), { recursive: true });
-  await writeFile(responsesPath, `${JSON.stringify(next, null, 2)}\n`, "utf8");
-}
-
-async function readLocalResponses(): Promise<StoredRsvpResponse[]> {
-  try {
-    const content = await readFile(responsesPath, "utf8");
-    const parsed: unknown = JSON.parse(content);
-    return Array.isArray(parsed) ? parsed.filter(isStoredRsvpResponse) : [];
-  } catch {
-    return [];
-  }
 }
 
 async function supabaseRequest<TResponse>(path: string, init?: RequestInit): Promise<TResponse> {
@@ -179,20 +156,12 @@ function isSupabaseConfigured(): boolean {
   return Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
 }
 
-function isVercelRuntime(): boolean {
-  return Boolean(process.env.VERCEL);
-}
-
 function fallbackGuest(token: string): Guest {
   return {
     token: token || "guest",
     name: "дорогой гость",
     isKnown: false
   };
-}
-
-function isStoredRsvpResponse(value: unknown): value is StoredRsvpResponse {
-  return isRecord(value) && typeof value.token === "string" && typeof value.guestName === "string";
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

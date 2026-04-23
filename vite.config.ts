@@ -1,53 +1,63 @@
-import { defineConfig, type Connect } from "vite";
+import { defineConfig, loadEnv, type Connect } from "vite";
 import type { ServerResponse } from "node:http";
 import { getGuestByToken, saveRsvpResponse } from "./server/inviteStore";
 
-export default defineConfig({
-  server: {
-    host: "127.0.0.1"
-  },
-  plugins: [
-    {
-      name: "wedding-api",
-      configureServer(server) {
-        server.middlewares.use("/api/guest", async (request, response) => {
-          if (request.method !== "GET") {
-            sendJson(response, 405, { error: "Method not allowed" });
-            return;
-          }
+const serverEnvKeys = ["SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "SUPABASE_INVITE_PHOTOS_BUCKET"] as const;
 
-          try {
-            const url = new URL(request.url ?? "", "http://localhost");
-            const guest = await getGuestByToken(url.searchParams.get("token") ?? "");
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
 
-            sendJson(response, 200, { guest });
-          } catch (error) {
-            sendJson(response, 400, {
-              error: error instanceof Error ? error.message : "Could not load guest"
-            });
-          }
-        });
+  for (const key of serverEnvKeys) {
+    process.env[key] ??= env[key];
+  }
 
-        server.middlewares.use("/api/rsvp", async (request, response) => {
-          if (request.method !== "POST") {
-            sendJson(response, 405, { error: "Method not allowed" });
-            return;
-          }
+  return {
+    server: {
+      host: "127.0.0.1"
+    },
+    plugins: [
+      {
+        name: "wedding-api",
+        configureServer(server) {
+          server.middlewares.use("/api/guest", async (request, response) => {
+            if (request.method !== "GET") {
+              sendJson(response, 405, { error: "Method not allowed" });
+              return;
+            }
 
-          try {
-            const body = await readJsonBody(request);
-            const saved = await saveRsvpResponse(body);
+            try {
+              const url = new URL(request.url ?? "", "http://localhost");
+              const guest = await getGuestByToken(url.searchParams.get("token") ?? "");
 
-            sendJson(response, 200, { ok: true, savedAt: saved.submittedAt });
-          } catch (error) {
-            sendJson(response, 400, {
-              error: error instanceof Error ? error.message : "Could not save response"
-            });
-          }
-        });
+              sendJson(response, 200, { guest });
+            } catch (error) {
+              sendJson(response, 400, {
+                error: error instanceof Error ? error.message : "Could not load guest"
+              });
+            }
+          });
+
+          server.middlewares.use("/api/rsvp", async (request, response) => {
+            if (request.method !== "POST") {
+              sendJson(response, 405, { error: "Method not allowed" });
+              return;
+            }
+
+            try {
+              const body = await readJsonBody(request);
+              const saved = await saveRsvpResponse(body);
+
+              sendJson(response, 200, { ok: true, savedAt: saved.submittedAt, storage: saved.storage });
+            } catch (error) {
+              sendJson(response, 400, {
+                error: error instanceof Error ? error.message : "Could not save response"
+              });
+            }
+          });
+        }
       }
-    }
-  ]
+    ]
+  };
 });
 
 async function readJsonBody(request: Connect.IncomingMessage): Promise<unknown> {
