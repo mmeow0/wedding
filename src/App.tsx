@@ -67,6 +67,10 @@ export function App() {
   }, []);
 
   useEffect(() => {
+    if (isGuestLoading) {
+      return;
+    }
+
     const handleScroll = (): void => {
       const hero = document.querySelector<HTMLElement>("#hero");
 
@@ -85,7 +89,7 @@ export function App() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isGuestLoading]);
 
   if (isGuestLoading) {
     return <LoadingScreen />;
