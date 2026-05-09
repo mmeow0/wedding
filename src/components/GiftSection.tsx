@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Reveal } from "./Reveal";
 import type { Guest } from "../types";
 
@@ -6,8 +7,15 @@ type GiftSectionProps = {
 };
 
 export function GiftSection({ guest }: GiftSectionProps) {
-  const imageSrc = guest.photoUrl || "/design/gift.jpeg";
-  const imageAlt = guest.photoUrl ? `Фото ${guest.name}` : "Белый котик с цветами";
+  const fallbackImageSrc = "/design/gift.jpeg";
+  const preferredImageSrc = guest.photoUrl || fallbackImageSrc;
+  const [imageSrc, setImageSrc] = useState(preferredImageSrc);
+
+  useEffect(() => {
+    setImageSrc(preferredImageSrc);
+  }, [preferredImageSrc]);
+
+  const imageAlt = imageSrc === fallbackImageSrc ? "Белый котик с цветами" : `Фото ${guest.name}`;
 
   return (
     <section className="section-shell" aria-labelledby="gift-title">
@@ -19,6 +27,11 @@ export function GiftSection({ guest }: GiftSectionProps) {
               alt={imageAlt}
               className="gift-card__image"
               loading="lazy"
+              onError={() => {
+                if (imageSrc !== fallbackImageSrc) {
+                  setImageSrc(fallbackImageSrc);
+                }
+              }}
             />
             <p className="section-heading__script">о подарке</p>
             <div className="ornament" aria-hidden="true">
