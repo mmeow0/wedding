@@ -10,6 +10,7 @@ import { FinalSection } from "./components/FinalSection";
 import { GiftSection } from "./components/GiftSection";
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
+import { LoadingScreen } from "./components/LoadingScreen";
 import { ProgramSection } from "./components/ProgramSection";
 import { Reveal } from "./components/Reveal";
 import { RsvpForm } from "./components/RsvpForm";
@@ -19,6 +20,7 @@ import type { Guest } from "./types";
 
 export function App() {
   const [guest, setGuest] = useState<Guest>(() => getCurrentGuest(window.location.search));
+  const [isGuestLoading, setIsGuestLoading] = useState(() => Boolean(getGuestToken(window.location.search)));
   const [isHeaderInHero, setIsHeaderInHero] = useState(true);
 
   useEffect(() => {
@@ -29,19 +31,38 @@ export function App() {
     }
 
     let cancelled = false;
+    let loadingTimer = 0;
+    const loadingStartedAt = Date.now();
 
     void fetchGuest(token).then((resolvedGuest) => {
       if (cancelled) {
         return;
       }
 
-      startTransition(() => {
-        setGuest(resolvedGuest);
-      });
+      const completeLoading = () => {
+        if (cancelled) {
+          return;
+        }
+
+        startTransition(() => {
+          setGuest(resolvedGuest);
+          setIsGuestLoading(false);
+        });
+      };
+
+      const remainingTime = Math.max(0, 550 - (Date.now() - loadingStartedAt));
+
+      if (remainingTime === 0) {
+        completeLoading();
+        return;
+      }
+
+      loadingTimer = window.setTimeout(completeLoading, remainingTime);
     });
 
     return () => {
       cancelled = true;
+      window.clearTimeout(loadingTimer);
     };
   }, []);
 
@@ -65,6 +86,10 @@ export function App() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  if (isGuestLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="page-shell">
