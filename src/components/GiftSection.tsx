@@ -6,7 +6,7 @@ type GiftSectionProps = {
 };
 
 export function GiftSection({ guest }: GiftSectionProps) {
-  const imageSrc = guest.photoUrl || "/design/cat.png";
+  const imageSrc = guest.photoUrl || "/design/gift.jpeg";
   const imageAlt = guest.photoUrl ? `Фото ${guest.name}` : "Белый котик с цветами";
 
   return (
