@@ -8,7 +8,7 @@ type GiftSectionProps = {
 
 export function GiftSection({ guest }: GiftSectionProps) {
   const fallbackImageSrc = "/design/gift.jpeg";
-  const preferredImageSrc = guest.photoUrl || fallbackImageSrc;
+  const preferredImageSrc = `/guests/${encodeURIComponent(guest.token)}/photo.jpeg`;
   const [imageSrc, setImageSrc] = useState(preferredImageSrc);
 
   useEffect(() => {
