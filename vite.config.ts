@@ -1,3 +1,4 @@
+import react from "@vitejs/plugin-react-swc";
 import { defineConfig, loadEnv, type Connect } from "vite";
 import type { ServerResponse } from "node:http";
 import { getGuestByToken, saveRsvpResponse } from "./server/inviteStore";
@@ -16,6 +17,7 @@ export default defineConfig(({ mode }) => {
       host: "127.0.0.1"
     },
     plugins: [
+      react(),
       {
         name: "wedding-api",
         configureServer(server) {
