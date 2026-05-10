@@ -1626,12 +1626,13 @@ ol {
   }
 
   .story-stack {
-    gap: 2.35rem;
+    gap: 4rem;
   }
 
   .story-card,
   .story-card--reverse {
-    gap: 1.2rem;
+    gap: 1.35rem;
+    padding-bottom: 0.9rem;
   }
 
   .story-polaroid {

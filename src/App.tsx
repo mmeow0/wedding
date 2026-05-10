@@ -11,7 +11,6 @@ import { GiftSection } from "./components/GiftSection";
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
 import { LoadingScreen } from "./components/LoadingScreen";
-import { ProgramSection } from "./components/ProgramSection";
 import { Reveal } from "./components/Reveal";
 import { RsvpForm } from "./components/RsvpForm";
 import { SectionTitle } from "./components/SectionTitle";
@@ -137,7 +136,6 @@ export function App() {
         </section>
 
         <DetailsSection details={weddingDetails} />
-        <ProgramSection timeline={weddingDetails.timeline} />
         <GiftSection guest={guest} />
 
         <section id="rsvp" className="section-shell" aria-labelledby="rsvp-title">

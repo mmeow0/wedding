@@ -29,7 +29,6 @@ export type DrinkOption = {
 export const navigationItems: readonly NavigationItem[] = [
   { id: "hero", label: "Главная" },
   { id: "details", label: "Детали" },
-  { id: "program", label: "Программа" },
   { id: "rsvp", label: "Анкета" },
   { id: "story", label: "История" }
 ];

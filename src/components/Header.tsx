@@ -6,7 +6,7 @@ type HeaderProps = {
 };
 
 export function Header({ items, inHero }: HeaderProps) {
-  const visibleItems = items.filter((item) => item.id !== "hero" && item.id !== "story");
+  const visibleItems = items.filter((item) => item.id !== "hero");
 
   return (
     <header className={inHero ? "site-header is-hero" : "site-header is-compact"}>
