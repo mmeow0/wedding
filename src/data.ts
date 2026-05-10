@@ -10,6 +10,13 @@ export const weddingDetails: WeddingDetails = {
   venueName: "ресторан Боярский",
   address: "Даниловская наб., 6А, Москва",
   mapUrl: "https://yandex.ru/maps/-/CPClyG8P",
+  // Когда будут готовы точные детали росписи, просто раскомментируйте и заполните блок ниже.
+  // ceremony: {
+  //   time: "15:00",
+  //   venueName: "Дворец бракосочетания",
+  //   address: "Адрес росписи",
+  //   mapUrl: "https://yandex.ru/maps/"
+  // },
   dressCode: ["молочный", "шалфей", "пудровый", "графит", "шампань"],
   timeline: [
     {
@@ -38,6 +45,7 @@ export const weddingDetails: WeddingDetails = {
 export const guests: readonly Guest[] = [
   {
     token: "demo-aigul-evgeniy",
-    name: "дорогой гость"
+    name: "дорогой гость",
+    attendsCeremony: false
   }
 ];

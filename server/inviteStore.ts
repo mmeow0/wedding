@@ -15,6 +15,7 @@ type SupabaseGuestRow = {
   readonly name: string;
   readonly photo_path: string | null;
   readonly photo_url: string | null;
+  readonly attends_ceremony: boolean | null;
 };
 
 const defaultPhotoBucket = "guest-photos";
@@ -28,7 +29,7 @@ export async function getGuestByToken(token: string): Promise<Guest> {
 
   if (isSupabaseConfigured()) {
     const rows = await supabaseRequest<SupabaseGuestRow[]>(
-      `/rest/v1/wedding_guests?token=eq.${encodeURIComponent(normalizedToken)}&select=id,token,name,photo_path,photo_url&limit=1`
+      `/rest/v1/wedding_guests?token=eq.${encodeURIComponent(normalizedToken)}&select=id,token,name,photo_path,photo_url,attends_ceremony&limit=1`
     );
     const row = rows[0];
 
@@ -37,6 +38,7 @@ export async function getGuestByToken(token: string): Promise<Guest> {
         token: row.token,
         name: row.name,
         photoUrl: row.photo_url ?? publicStorageUrl(row.photo_path),
+        attendsCeremony: Boolean(row.attends_ceremony),
         isKnown: true
       };
     }
@@ -160,6 +162,7 @@ function fallbackGuest(token: string): Guest {
   return {
     token: token || "guest",
     name: "дорогой гость",
+    attendsCeremony: false,
     isKnown: false
   };
 }

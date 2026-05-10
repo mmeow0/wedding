@@ -6,9 +6,13 @@ create table if not exists public.wedding_guests (
   name text not null,
   photo_path text,
   photo_url text,
+  attends_ceremony boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.wedding_guests
+  add column if not exists attends_ceremony boolean not null default false;
 
 create table if not exists public.wedding_rsvps (
   id uuid primary key default gen_random_uuid(),
@@ -59,8 +63,9 @@ create policy "Service role can manage guest photos"
   using (bucket_id = 'guest-photos' and auth.role() = 'service_role')
   with check (bucket_id = 'guest-photos' and auth.role() = 'service_role');
 
-insert into public.wedding_guests (token, name)
-values ('demo-aigul-evgeniy', 'дорогой гость')
+insert into public.wedding_guests (token, name, attends_ceremony)
+values ('demo-aigul-evgeniy', 'дорогой гость', false)
 on conflict (token) do update
 set name = excluded.name,
+    attends_ceremony = excluded.attends_ceremony,
     updated_at = now();

@@ -135,7 +135,7 @@ export function App() {
           </div>
         </section>
 
-        <DetailsSection details={weddingDetails} />
+        <DetailsSection details={weddingDetails} guest={guest} />
         <GiftSection guest={guest} />
 
         <section id="rsvp" className="section-shell" aria-labelledby="rsvp-title">

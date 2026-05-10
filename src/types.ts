@@ -2,7 +2,15 @@ export type Guest = {
   readonly token: string;
   readonly name: string;
   readonly photoUrl?: string;
+  readonly attendsCeremony?: boolean;
   readonly isKnown?: boolean;
+};
+
+export type WeddingVenue = {
+  readonly time: string;
+  readonly venueName: string;
+  readonly address: string;
+  readonly mapUrl: string;
 };
 
 export type WeddingDetails = {
@@ -15,6 +23,7 @@ export type WeddingDetails = {
   readonly venueName: string;
   readonly address: string;
   readonly mapUrl: string;
+  readonly ceremony?: WeddingVenue;
   readonly dressCode: readonly string[];
   readonly timeline: readonly TimelineItem[];
 };
