@@ -810,6 +810,11 @@ ol {
   text-align: center;
 }
 
+.venue-card--route {
+  width: min(100%, 42rem);
+  padding-top: 2.6rem;
+}
+
 .venue-card__sprig {
   position: absolute;
   top: -1.45rem;
@@ -842,6 +847,23 @@ ol {
 
 .venue-card__address {
   margin: 0.5rem 0 1.4rem;
+}
+
+.venue-route__section + .venue-route__section {
+  margin-top: 1.35rem;
+}
+
+.venue-route__divider {
+  width: min(100%, 20rem);
+  height: 1px;
+  margin: 2.8rem auto 2rem;
+  background: linear-gradient(90deg, transparent, rgba(132, 150, 139, 0.42), transparent);
+}
+
+.venue-route__note {
+  max-width: 28rem;
+  margin: 0.75rem auto 0;
+  color: var(--ink-soft);
 }
 
 .program-card {

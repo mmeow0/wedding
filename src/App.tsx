@@ -20,6 +20,7 @@ import type { Guest } from "./types";
 export function App() {
   const [guest, setGuest] = useState<Guest>(() => getCurrentGuest(window.location.search));
   const [isGuestLoading, setIsGuestLoading] = useState(() => Boolean(getGuestToken(window.location.search)));
+  const [hasGuestLoadError, setHasGuestLoadError] = useState(false);
   const [isHeaderInHero, setIsHeaderInHero] = useState(true);
 
   useEffect(() => {
@@ -44,7 +45,12 @@ export function App() {
         }
 
         startTransition(() => {
-          setGuest(resolvedGuest);
+          if (resolvedGuest) {
+            setGuest(resolvedGuest);
+          } else {
+            setHasGuestLoadError(true);
+          }
+
           setIsGuestLoading(false);
         });
       };
@@ -92,6 +98,10 @@ export function App() {
 
   if (isGuestLoading) {
     return <LoadingScreen />;
+  }
+
+  if (hasGuestLoadError) {
+    return <LoadingScreen mode="error" />;
   }
 
   return (

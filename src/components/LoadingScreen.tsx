@@ -1,6 +1,17 @@
-export function LoadingScreen() {
+type LoadingScreenProps = {
+  readonly mode?: "loading" | "error";
+};
+
+export function LoadingScreen({ mode = "loading" }: LoadingScreenProps) {
+  const isError = mode === "error";
+
   return (
-    <div className="loading-screen" role="status" aria-live="polite" aria-busy="true">
+    <div
+      className="loading-screen"
+      role={isError ? "alert" : "status"}
+      aria-live="polite"
+      aria-busy={isError ? undefined : "true"}
+    >
       <img
         src="/design/cloud.png"
         alt=""
@@ -21,17 +32,23 @@ export function LoadingScreen() {
           aria-hidden="true"
           className="loading-screen__sprig"
         />
-        <p className="loading-screen__eyebrow">Ещё чуть-чуть</p>
-        <h1 className="loading-screen__title">Открываем ваше приглашение</h1>
+        <p className="loading-screen__eyebrow">{isError ? "Не получилось" : "Ещё чуть-чуть"}</p>
+        <h1 className="loading-screen__title">
+          {isError ? "Данные не пришли" : "Открываем ваше приглашение"}
+        </h1>
         <p className="loading-screen__text">
-          Подгружаем имя гостя и детали вечера, чтобы всё встретило вас красиво.
+          {isError
+            ? "Пожалуйста, обновите страницу чуть позже. Если сообщение повторится, напишите нам, и мы всё проверим <3"
+            : "Подгружаем имя гостя и детали вечера, чтобы всё встретило вас красиво."}
         </p>
 
-        <div className="loading-screen__dots" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </div>
+        {!isError && (
+          <div className="loading-screen__dots" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+        )}
       </div>
     </div>
   );

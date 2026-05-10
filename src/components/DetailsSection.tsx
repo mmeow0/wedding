@@ -1,6 +1,6 @@
 import { Reveal } from "./Reveal";
 import { SectionTitle } from "./SectionTitle";
-import type { Guest, WeddingDetails, WeddingVenue } from "../types";
+import type { Guest, WeddingDetails } from "../types";
 
 type DetailsSectionProps = {
   readonly details: WeddingDetails;
@@ -9,6 +9,7 @@ type DetailsSectionProps = {
 
 export function DetailsSection({ details, guest }: DetailsSectionProps) {
   const weddingYear = new Date(details.dateIso).getFullYear();
+  const restaurantDepartureTime = "18:30";
   const hasCeremonyInvite = Boolean(
     guest.attendsCeremony &&
       details.ceremony?.time &&
@@ -18,37 +19,12 @@ export function DetailsSection({ details, guest }: DetailsSectionProps) {
   );
   const cards = [
     { icon: "✿", label: "Дата", value: `${details.dateLabel} ${weddingYear}` },
-    ...(hasCeremonyInvite ? [{ icon: "◷", label: "Роспись", value: details.ceremony!.time }] : []),
     {
-      icon: hasCeremonyInvite ? "⌂" : "◷",
-      label: hasCeremonyInvite ? "Ресторан" : "Время",
-      value: details.guestArrivalTime
+      icon: "◷",
+      label: "Время",
+      value: hasCeremonyInvite ? details.ceremony!.time : details.guestArrivalTime
     }
   ];
-  const venues: Array<{ eyebrow: string; venue: WeddingVenue }> = hasCeremonyInvite
-    ? [
-        { eyebrow: "Сначала ждём вас на росписи", venue: details.ceremony! },
-        {
-          eyebrow: "После этого встречаемся в ресторане",
-          venue: {
-            time: details.guestArrivalTime,
-            venueName: details.venueName,
-            address: details.address,
-            mapUrl: details.mapUrl
-          }
-        }
-      ]
-    : [
-        {
-          eyebrow: "Ждём вас на празднике",
-          venue: {
-            time: details.guestArrivalTime,
-            venueName: details.venueName,
-            address: details.address,
-            mapUrl: details.mapUrl
-          }
-        }
-      ];
 
   return (
     <section id="details" className="section-shell" aria-labelledby="details-title">
@@ -60,7 +36,7 @@ export function DetailsSection({ details, guest }: DetailsSectionProps) {
             title="Детали вечера"
             description={
               hasCeremonyInvite
-                ? "Для вас собрали весь маршрут дня: сначала роспись, а потом тёплый вечер в ресторане Боярский."
+                ? "Для вас собрали маршрут дня: в 17:30 встречаемся на росписи, а в 18:30 вместе едем в ресторан Боярский."
                 : "Собрали для вас самое важное: время встречи, площадку и быстрый маршрут до места праздника."
             }
           />
@@ -82,9 +58,46 @@ export function DetailsSection({ details, guest }: DetailsSectionProps) {
           ))}
         </div>
 
-        <div className="venue-stack">
-          {venues.map(({ eyebrow, venue }, index) => (
-            <Reveal key={`${eyebrow}-${venue.venueName}`} delay={200 + index * 120}>
+        {hasCeremonyInvite ? (
+          <Reveal delay={200}>
+            <article className="surface-card venue-card venue-card--route">
+              <img
+                src="/design/flower-sprig.png"
+                alt=""
+                aria-hidden="true"
+                className="venue-card__sprig"
+              />
+
+              <div className="venue-route__section">
+                <p className="venue-card__eyebrow">Ждём вас на росписи</p>
+                <p className="venue-card__time">{details.ceremony!.time}</p>
+                <p className="venue-card__title">{details.ceremony!.venueName}</p>
+                <p className="venue-card__address">{details.ceremony!.address}</p>
+                <a
+                  className="button button--outline"
+                  href={details.ceremony!.mapUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Открыть на Яндекс Картах
+                </a>
+              </div>
+
+              <div className="venue-route__divider" aria-hidden="true" />
+
+              <div className="venue-route__section">
+                <p className="venue-card__time">{restaurantDepartureTime}</p>
+                   <p className="venue-card__title">Ресторан Боярский</p>
+                <p className="venue-card__address">{details.address}</p>
+                <a className="button button--outline" href={details.mapUrl} target="_blank" rel="noreferrer">
+                  Открыть на Яндекс Картах
+                </a>
+              </div>
+            </article>
+          </Reveal>
+        ) : (
+          <div className="venue-stack">
+            <Reveal delay={200}>
               <article className="surface-card venue-card">
                 <img
                   src="/design/flower-sprig.png"
@@ -92,17 +105,17 @@ export function DetailsSection({ details, guest }: DetailsSectionProps) {
                   aria-hidden="true"
                   className="venue-card__sprig"
                 />
-                <p className="venue-card__eyebrow">{eyebrow}</p>
-                <p className="venue-card__time">{venue.time}</p>
-                <p className="venue-card__title">{venue.venueName}</p>
-                <p className="venue-card__address">{venue.address}</p>
-                <a className="button button--outline" href={venue.mapUrl} target="_blank" rel="noreferrer">
+                <p className="venue-card__eyebrow">Ждём вас на празднике</p>
+                <p className="venue-card__time">{details.guestArrivalTime}</p>
+                <p className="venue-card__title">{details.venueName}</p>
+                <p className="venue-card__address">{details.address}</p>
+                <a className="button button--outline" href={details.mapUrl} target="_blank" rel="noreferrer">
                   Открыть на Яндекс Картах
                 </a>
               </article>
             </Reveal>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );

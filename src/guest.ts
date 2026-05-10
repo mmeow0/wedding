@@ -23,22 +23,29 @@ export function getCurrentGuest(locationSearch: string): Guest {
   };
 }
 
-export async function fetchGuest(token: string): Promise<Guest> {
+export async function fetchGuest(token: string, timeoutMs = 10000): Promise<Guest | null> {
   if (!token) {
-    return fallbackGuest;
+    return null;
   }
 
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
+
   try {
-    const response = await fetch(`/api/guest?token=${encodeURIComponent(token)}`);
+    const response = await fetch(`/api/guest?token=${encodeURIComponent(token)}`, {
+      signal: controller.signal
+    });
 
     if (!response.ok) {
-      return getCurrentGuest(`?${guestParamName}=${encodeURIComponent(token)}`);
+      return null;
     }
 
     const payload = (await response.json()) as { guest?: Guest };
-    return payload.guest ?? getCurrentGuest(`?${guestParamName}=${encodeURIComponent(token)}`);
+    return payload.guest ?? null;
   } catch {
-    return getCurrentGuest(`?${guestParamName}=${encodeURIComponent(token)}`);
+    return null;
+  } finally {
+    window.clearTimeout(timeout);
   }
 }
 

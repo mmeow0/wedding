@@ -10,13 +10,12 @@ export const weddingDetails: WeddingDetails = {
   venueName: "ресторан Боярский",
   address: "Даниловская наб., 6А, Москва",
   mapUrl: "https://yandex.ru/maps/-/CPClyG8P",
-  // Когда будут готовы точные детали росписи, просто раскомментируйте и заполните блок ниже.
-  // ceremony: {
-  //   time: "15:00",
-  //   venueName: "Дворец бракосочетания",
-  //   address: "Адрес росписи",
-  //   mapUrl: "https://yandex.ru/maps/"
-  // },
+  ceremony: {
+    time: "17:30",
+    venueName: "Усадьба Зубовых",
+    address: "ул. Александра Солженицына, 9, стр. 1, Москва",
+    mapUrl: "https://yandex.ru/maps/-/CPcg5-3w"
+  },
   dressCode: ["молочный", "шалфей", "пудровый", "графит", "шампань"],
   timeline: [
     {
