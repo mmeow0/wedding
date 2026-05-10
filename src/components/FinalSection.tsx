@@ -17,7 +17,7 @@ export function FinalSection() {
                 <span className="ornament__flower">✿</span>
               </div>
               <h2 id="final-title" className="final-card__quote">
-                Будем счастливы видеть вас рядом в этот день
+                Будем счастливы видеть тебя рядом в этот день
               </h2>
               <p className="final-card__signature">
                 Айгуль и Евгений

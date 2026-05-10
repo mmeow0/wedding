@@ -38,7 +38,7 @@ export function GiftSection({ guest }: GiftSectionProps) {
               <span className="ornament__flower">✿</span>
             </div>
             <h2 id="gift-title" className="gift-card__quote">
-              Самый желанный подарок — видеть вас рядом
+              Самый желанный подарок — видеть тебя рядом
             </h2>
             <p className="gift-card__text">
               А если захотите порадовать нас чем-то ещё, нам будет особенно приятно получить

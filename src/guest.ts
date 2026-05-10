@@ -23,7 +23,7 @@ export function getCurrentGuest(locationSearch: string): Guest {
   };
 }
 
-export async function fetchGuest(token: string, timeoutMs = 10000): Promise<Guest | null> {
+export async function fetchGuest(token: string, timeoutMs = 30000): Promise<Guest | null> {
   if (!token) {
     return null;
   }

@@ -34,12 +34,12 @@ export function LoadingScreen({ mode = "loading" }: LoadingScreenProps) {
         />
         <p className="loading-screen__eyebrow">{isError ? "Не получилось" : "Ещё чуть-чуть"}</p>
         <h1 className="loading-screen__title">
-          {isError ? "Данные не пришли" : "Открываем ваше приглашение"}
+          {isError ? "Данные не пришли" : "Открываем твое приглашение"}
         </h1>
         <p className="loading-screen__text">
           {isError
             ? "Пожалуйста, обновите страницу чуть позже. Если сообщение повторится, напишите нам, и мы всё проверим <3"
-            : "Подгружаем имя гостя и детали вечера, чтобы всё встретило вас красиво."}
+            : "Подгружаем детали вечера, чтобы всё встретило вас красиво."}
         </p>
 
         {!isError && (
