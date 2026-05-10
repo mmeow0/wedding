@@ -1,5 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant:wght@400&family=Quicksand:wght@400;500;600;700&display=swap");
 
+@font-face {
+  font-family: "Wedding Snell";
+  src:
+    local("Snell Roundhand"),
+    url("/fonts/shell-roundhand.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Wedding Chancery";
+  src:
+    local("Apple Chancery"),
+    url("/fonts/apple-chansery.woff2") format("woff2");
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --background: 36 50% 97%;
@@ -25,7 +41,7 @@
   --shadow-petal: 0 16px 40px -26px rgba(194, 139, 155, 0.8);
   --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
   --font-display: "Cormorant", "Times New Roman", serif;
-  --font-script: "Snell Roundhand", "Apple Chancery", cursive;
+  --font-script: "Wedding Snell", "Wedding Chancery", "Snell Roundhand", "Apple Chancery", cursive;
   --font-body: "Quicksand", system-ui, sans-serif;
 }
 
