@@ -175,6 +175,5 @@ export const attendanceOptions: readonly {
 export const drinkOptions: readonly DrinkOption[] = [
   { value: "sparkling", label: "Игристое" },
   { value: "wine", label: "Вино" },
-  { value: "cocktails", label: "Коктейли" },
   { value: "non-alcohol", label: "Безалкогольное" }
 ];
