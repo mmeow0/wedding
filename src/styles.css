@@ -1,18 +1,29 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant:wght@400&family=Quicksand:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant:wght@400&display=swap");
 
 @font-face {
-  font-family: "Wedding Snell";
+  font-family: "Apple Chancery";
   src:
-    local("Snell Roundhand"),
-    url("/fonts/shell-roundhand.woff2") format("woff2");
+    url("https://db.onlinewebfonts.com/t/596ad608a41bd28960c777827cdd6af1.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/596ad608a41bd28960c777827cdd6af1.woff") format("woff"),
+    url("https://db.onlinewebfonts.com/t/596ad608a41bd28960c777827cdd6af1.ttf") format("truetype");
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Wedding Chancery";
+  font-family: "Snell Roundhand W01 Script";
   src:
-    local("Apple Chancery"),
-    url("/fonts/apple-chansery.woff2") format("woff2");
+    url("https://db.onlinewebfonts.com/t/f8deb3c1a029ec56b15bb462c1518f07.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/f8deb3c1a029ec56b15bb462c1518f07.woff") format("woff"),
+    url("https://db.onlinewebfonts.com/t/f8deb3c1a029ec56b15bb462c1518f07.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src:
+    url("https://db.onlinewebfonts.com/t/21bfa7d415073b05f611f3d15588ffd8.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/21bfa7d415073b05f611f3d15588ffd8.woff") format("woff"),
+    url("https://db.onlinewebfonts.com/t/21bfa7d415073b05f611f3d15588ffd8.ttf") format("truetype");
   font-display: swap;
 }
 
@@ -41,7 +52,7 @@
   --shadow-petal: 0 16px 40px -26px rgba(194, 139, 155, 0.8);
   --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
   --font-display: "Cormorant", "Times New Roman", serif;
-  --font-script: "Wedding Snell", "Wedding Chancery", "Snell Roundhand", "Apple Chancery", cursive;
+  --font-script: "Snell Roundhand W01 Script", "Apple Chancery", "Snell Roundhand", cursive;
   --font-body: "Quicksand", system-ui, sans-serif;
 }
 
