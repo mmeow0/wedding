@@ -15,7 +15,7 @@ export function ProgramSection({ timeline }: ProgramSectionProps) {
             centered
             script="расписание"
             title="Программа дня"
-            description="План вечера останется живым и тёплым, но основные ориентиры мы для вас уже собрали."
+            description="План вечера останется живым и тёплым, но основные ориентиры мы для тебя уже собрали."
           />
         </Reveal>
 

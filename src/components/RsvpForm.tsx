@@ -32,7 +32,7 @@ export function RsvpForm({ guest }: RsvpFormProps) {
     if (!attendance) {
       setStatus({
         tone: "error",
-        message: "Пожалуйста, выберите, сможете ли вы прийти."
+        message: "Пожалуйста, выбери, сможешь ли ты прийти."
       });
       return;
     }
@@ -82,7 +82,7 @@ export function RsvpForm({ guest }: RsvpFormProps) {
     } catch {
       setStatus({
         tone: "error",
-        message: "Не получилось отправить. Попробуйте ещё раз или напишите нам напрямую."
+        message: "Не получилось отправить. Попробуй ещё раз или напиши нам напрямую."
       });
     } finally {
       setIsSubmitting(false);
@@ -96,7 +96,7 @@ export function RsvpForm({ guest }: RsvpFormProps) {
           <span className="ornament__flower">✿</span>
         </div>
         <h3 className="success-card__title">Спасибо!</h3>
-        <p className="success-card__text">Ваш ответ сохранён, мы всё учтём.</p>
+        <p className="success-card__text">Твой ответ сохранён, мы всё учтём.</p>
       </div>
     );
   }
@@ -104,11 +104,11 @@ export function RsvpForm({ guest }: RsvpFormProps) {
   return (
     <form className="surface-card form-card" onSubmit={handleSubmit}>
       <div className="form-card__intro">
-        <h3 className="form-card__title">Поделитесь, как вам будет комфортнее</h3>
+        <h3 className="form-card__title">Поделись, как тебе будет комфортнее</h3>
       </div>
 
       <fieldset className="form-card__group">
-        <legend>Вы сможете прийти? *</legend>
+        <legend>Ты сможешь прийти? *</legend>
         <div className="option-grid">
           {attendanceOptions.map((option) => (
             <label
@@ -133,7 +133,7 @@ export function RsvpForm({ guest }: RsvpFormProps) {
       </fieldset>
 
       <fieldset className="form-card__group">
-        <legend>Что предпочтёте выпить?</legend>
+        <legend>Что предпочтёшь выпить?</legend>
         <div className="option-grid option-grid--two">
           {drinkOptions.map((option) => (
             <label
@@ -158,7 +158,7 @@ export function RsvpForm({ guest }: RsvpFormProps) {
               className="option-card__text-input"
               name="drinkNotes"
               type="text"
-              placeholder="...или что бы вы предпочли"
+              placeholder="...или что бы ты предпочёл"
               disabled={isSubmitting}
             />
           </label>
@@ -189,7 +189,7 @@ export function RsvpForm({ guest }: RsvpFormProps) {
         </label>
 
         <label className="field">
-          <span className="field-label">Песни, под которые вы точно выйдете танцевать</span>
+          <span className="field-label">Песни, под которые ты точно выйдешь танцевать</span>
           <input
             className="text-input"
             name="song"
@@ -211,12 +211,12 @@ export function RsvpForm({ guest }: RsvpFormProps) {
         </label>
 
         <label className="field">
-          <span className="field-label">Пожелание или сообщение нам</span>
+          <span className="field-label">Что-то еще, что хотели бы сказать нам</span>
           <textarea
             className="text-area"
             name="message"
             rows={4}
-            placeholder="Будем рады вашим словам"
+            placeholder="Будем рады твоим словам"
             disabled={isSubmitting}
           />
         </label>

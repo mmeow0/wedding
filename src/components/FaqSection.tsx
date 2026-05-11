@@ -18,7 +18,7 @@ export function FaqSection({ mapUrl }: FaqSectionProps) {
             centered
             script="коротко о важном"
             title="Частые вопросы"
-            description="Если у вас останутся ещё вопросы, просто напишите нам: мы с радостью подскажем."
+            description="Если у тебя останутся ещё вопросы, просто напиши нам: мы с радостью подскажем."
           />
         </Reveal>
 

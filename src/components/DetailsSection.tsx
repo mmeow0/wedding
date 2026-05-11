@@ -36,8 +36,8 @@ export function DetailsSection({ details, guest }: DetailsSectionProps) {
             title="Детали вечера"
             description={
               hasCeremonyInvite
-                ? "Для вас собрали маршрут дня: в 17:30 встречаемся на росписи, а в 18:30 вместе едем в ресторан Боярский."
-                : "Собрали для вас самое важное: время встречи, площадку и быстрый маршрут до места праздника."
+                ? "Для тебя собрали маршрут дня: в 17:30 встречаемся на росписи, а в 18:30 вместе едем в ресторан Боярский."
+                : "Собрали для тебя самое важное: время встречи, площадку и быстрый маршрут до места праздника."
             }
           />
         </Reveal>
@@ -69,7 +69,7 @@ export function DetailsSection({ details, guest }: DetailsSectionProps) {
               />
 
               <div className="venue-route__section">
-                <p className="venue-card__eyebrow">Ждём вас на росписи</p>
+                <p className="venue-card__eyebrow">Ждём тебя на росписи</p>
                 <p className="venue-card__time">{details.ceremony!.time}</p>
                 <p className="venue-card__title">{details.ceremony!.venueName}</p>
                 <p className="venue-card__address">{details.ceremony!.address}</p>
@@ -105,7 +105,7 @@ export function DetailsSection({ details, guest }: DetailsSectionProps) {
                   aria-hidden="true"
                   className="venue-card__sprig"
                 />
-                <p className="venue-card__eyebrow">Ждём вас на празднике</p>
+                <p className="venue-card__eyebrow">Ждём тебя на празднике</p>
                 <p className="venue-card__time">{details.guestArrivalTime}</p>
                 <p className="venue-card__title">{details.venueName}</p>
                 <p className="venue-card__address">{details.address}</p>
