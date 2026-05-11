@@ -50,9 +50,6 @@ export function FinalSection() {
                   </svg>
                 </span>
               </p>
-              <a className="button button--primary" href="#rsvp">
-                Заполнить анкету
-              </a>
             </div>
           </Reveal>
         </div>
