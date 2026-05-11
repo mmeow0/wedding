@@ -50,9 +50,11 @@ export function RsvpForm({ guest }: RsvpFormProps) {
       plusOne: "no",
       plusOneName: "",
       drinks,
+      drinkNotes: String(formData.get("drinkNotes") ?? ""),
       allergens: String(formData.get("allergens") ?? ""),
       menuNotes: String(formData.get("menuNotes") ?? ""),
       song: String(formData.get("song") ?? ""),
+      avoidSongs: String(formData.get("avoidSongs") ?? ""),
       message: String(formData.get("message") ?? "")
     };
 
@@ -102,7 +104,6 @@ export function RsvpForm({ guest }: RsvpFormProps) {
   return (
     <form className="surface-card form-card" onSubmit={handleSubmit}>
       <div className="form-card__intro">
-        <p className="form-card__eyebrow">Анкета</p>
         <h3 className="form-card__title">Поделитесь, как вам будет комфортнее</h3>
       </div>
 
@@ -132,7 +133,7 @@ export function RsvpForm({ guest }: RsvpFormProps) {
       </fieldset>
 
       <fieldset className="form-card__group">
-        <legend>Что предпочитаете выпить?</legend>
+        <legend>Что предпочтёте выпить?</legend>
         <div className="option-grid option-grid--two">
           {drinkOptions.map((option) => (
             <label
@@ -152,6 +153,15 @@ export function RsvpForm({ guest }: RsvpFormProps) {
               <span>{option.label}</span>
             </label>
           ))}
+          <label className="option-card option-card--text">
+            <input
+              className="option-card__text-input"
+              name="drinkNotes"
+              type="text"
+              placeholder="...или что бы вы предпочли"
+              disabled={isSubmitting}
+            />
+          </label>
         </div>
       </fieldset>
 
@@ -179,12 +189,23 @@ export function RsvpForm({ guest }: RsvpFormProps) {
         </label>
 
         <label className="field">
-          <span className="field-label">Песня, под которую вы точно выйдете танцевать</span>
+          <span className="field-label">Песни, под которые вы точно выйдете танцевать</span>
           <input
             className="text-input"
             name="song"
             type="text"
             placeholder="Можно оставить пустым"
+            disabled={isSubmitting}
+          />
+        </label>
+
+        <label className="field">
+          <span className="field-label">Что точно не стоит включать?</span>
+          <input
+            className="text-input"
+            name="avoidSongs"
+            type="text"
+            placeholder="Жанры или песни, которые лучше пропустить"
             disabled={isSubmitting}
           />
         </label>

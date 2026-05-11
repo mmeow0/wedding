@@ -41,8 +41,10 @@ export type RsvpPayload = {
   readonly plusOne: "yes" | "no";
   readonly plusOneName: string;
   readonly drinks: readonly string[];
+  readonly drinkNotes: string;
   readonly allergens: string;
   readonly menuNotes: string;
   readonly song: string;
+  readonly avoidSongs: string;
   readonly message: string;
 };

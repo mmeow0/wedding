@@ -76,9 +76,11 @@ export async function saveRsvpResponse(input: unknown, userAgent = ""): Promise<
       guest_name: guest?.name ?? parsed.guestName,
       attendance: parsed.attendance,
       drinks: parsed.drinks,
+      drink_notes: parsed.drinkNotes,
       allergens: parsed.allergens,
       menu_notes: parsed.menuNotes,
       song: parsed.song,
+      avoid_songs: parsed.avoidSongs,
       message: parsed.message,
       user_agent: parsed.userAgent
     })
@@ -109,9 +111,11 @@ function parseRsvpResponse(input: unknown, userAgent: string): StoredRsvpRespons
     plusOne: "no",
     plusOneName: "",
     drinks: arrayOfStrings(input.drinks),
+    drinkNotes: optionalString(input.drinkNotes),
     allergens: optionalString(input.allergens),
     menuNotes: optionalString(input.menuNotes),
     song: optionalString(input.song),
+    avoidSongs: optionalString(input.avoidSongs),
     message: optionalString(input.message),
     storage: "supabase",
     submittedAt: new Date().toISOString(),

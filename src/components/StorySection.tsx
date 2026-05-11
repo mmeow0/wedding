@@ -39,7 +39,10 @@ export function StorySection() {
                       height="900"
                     />
                   </div>
-                  <figcaption className="story-polaroid__caption">{moment.caption}</figcaption>
+                  <figcaption className="story-polaroid__caption">
+                    <span>{moment.caption}</span>
+                    <time>{moment.date}</time>
+                  </figcaption>
                 </figure>
 
                 <div className="story-copy">

@@ -21,13 +21,21 @@ create table if not exists public.wedding_rsvps (
   guest_name text not null,
   attendance text not null check (attendance in ('yes', 'no', 'unsure')),
   drinks text[] not null default '{}',
+  drink_notes text not null default '',
   allergens text not null default '',
   menu_notes text not null default '',
   song text not null default '',
+  avoid_songs text not null default '',
   message text not null default '',
   user_agent text not null default '',
   submitted_at timestamptz not null default now()
 );
+
+alter table public.wedding_rsvps
+  add column if not exists drink_notes text not null default '';
+
+alter table public.wedding_rsvps
+  add column if not exists avoid_songs text not null default '';
 
 create index if not exists wedding_rsvps_guest_token_idx on public.wedding_rsvps (guest_token);
 create index if not exists wedding_rsvps_guest_id_idx on public.wedding_rsvps (guest_id);
