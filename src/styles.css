@@ -1093,7 +1093,10 @@ ol {
 }
 
 .option-card input:not(.option-card__text-input) {
-  margin-top: 0.2rem;
+  flex: 0 0 auto;
+  width: clamp(1.05rem, 0.72rem + 0.6vw, 1.45rem);
+  height: clamp(1.05rem, 0.72rem + 0.6vw, 1.45rem);
+  margin-top: 0.34em;
   accent-color: hsl(var(--primary));
 }
 
