@@ -471,6 +471,14 @@ ol {
   color: rgba(73, 84, 104, 0.62);
 }
 
+.hero .eyebrow {
+  margin-top: 0.9rem;
+  margin-bottom: 0.1rem;
+  color: rgba(73, 84, 104, 0.7);
+  font-size: clamp(0.98rem, 1.05vw, 1.18rem);
+  letter-spacing: 0.18em;
+}
+
 .hero__title,
 .section-heading__title,
 .countdown-finished,
@@ -1404,6 +1412,10 @@ ol {
     margin: 0 auto 0.35rem;
     font-size: clamp(1.55rem, 7vw, 2.45rem);
     line-height: 1.12;
+    text-shadow:
+      0 0 0.01em currentColor,
+      0 1px 12px rgba(255, 252, 247, 0.72);
+    -webkit-text-stroke: 0.012em currentColor;
   }
 
   .hero__content {
@@ -1496,7 +1508,15 @@ ol {
   }
 
   .hero__content {
-    transform: translateY(-1.35rem);
+    transform: translateY(-1.9rem);
+  }
+
+  .hero__script {
+    font-size: clamp(2rem, 4.8vw, 2.75rem);
+  }
+
+  .hero__title {
+    font-size: clamp(4.4rem, 9.2vw, 6.6rem);
   }
 
   .hero__summary {
@@ -1567,11 +1587,11 @@ ol {
 
   .hero__content {
     max-width: 62rem;
-    transform: translateY(-3rem);
+    transform: translateY(-2.4rem);
   }
 
   .hero__script {
-    font-size: clamp(2.35rem, 3vw, 3.35rem);
+    font-size: clamp(2.55rem, 3vw, 3.45rem);
   }
 
   .hero__title {
