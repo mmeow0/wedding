@@ -1,19 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&display=swap");
 
 @font-face {
   font-family: "Snell Roundhand W01 Script";
   src:
     url("/fonts/SnellRoundhandLTW01-Script/SnellRoundhandLTW01-Script.woff2") format("woff2"),
     url("/fonts/SnellRoundhandLTW01-Script/SnellRoundhandLTW01-Script.ttf") format("truetype");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Quicksand";
-  src:
-    url("https://db.onlinewebfonts.com/t/21bfa7d415073b05f611f3d15588ffd8.woff2") format("woff2"),
-    url("https://db.onlinewebfonts.com/t/21bfa7d415073b05f611f3d15588ffd8.woff") format("woff"),
-    url("https://db.onlinewebfonts.com/t/21bfa7d415073b05f611f3d15588ffd8.ttf") format("truetype");
   font-display: swap;
 }
 
@@ -43,7 +34,7 @@
   --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
   --font-display: "Cormorant", "Times New Roman", serif;
   --font-script: "Snell Roundhand W01 Script", "Snell Roundhand", "Apple Chancery", cursive;
-  --font-body: "Quicksand", system-ui, sans-serif;
+  --font-body: "Cormorant", "Times New Roman", serif;
 }
 
 *,
@@ -53,6 +44,7 @@
 }
 
 html {
+  font-size: 16px;
   scroll-behavior: smooth;
 }
 
@@ -61,9 +53,13 @@ body {
   min-width: 320px;
   color: var(--ink);
   font-family: var(--font-body);
+  font-size: 1.12rem;
+  font-weight: 500;
   background: var(--gradient-sky);
   background-attachment: fixed;
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 body::before {
@@ -201,9 +197,9 @@ ol {
 }
 
 .loading-screen__eyebrow {
-  font-size: 0.74rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: hsl(var(--primary));
 }
@@ -220,7 +216,7 @@ ol {
 .loading-screen__text {
   max-width: 27rem;
   margin: 1rem auto 0;
-  font-size: 1rem;
+  font-size: 1.4rem;
   color: var(--ink-soft);
 }
 
@@ -361,9 +357,9 @@ ol {
 .hero__guest-label,
 .field-label,
 .form-card__group legend {
-  font-size: 0.74rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -576,12 +572,12 @@ ol {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3rem;
-  padding: 0 1.6rem;
+  min-height: 3.25rem;
+  padding: 0 2rem;
   border-radius: 999px;
-  font-size: 0.82rem;
+  font-size: 0.875rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   transition:
     transform 220ms var(--transition-smooth),
@@ -848,9 +844,9 @@ ol {
 
 .venue-card__eyebrow {
   margin-bottom: 0.55rem;
-  font-size: 0.74rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: hsl(var(--primary));
 }
@@ -1082,6 +1078,7 @@ ol {
 
 .option-card span {
   color: var(--ink);
+  font-size: 1.08rem;
   line-height: 1.55;
 }
 
@@ -1102,6 +1099,7 @@ ol {
   border-radius: 1.15rem;
   background: rgba(255, 255, 255, 0.72);
   color: var(--ink);
+  font-size: 1.08rem;
   padding: 0.95rem 1rem;
   transition:
     border-color 180ms ease,
@@ -1129,7 +1127,7 @@ ol {
 .status-note {
   min-height: 1.4rem;
   text-align: center;
-  font-size: 0.96rem;
+  font-size: 1.06rem;
 }
 
 .status-note--pending {
@@ -1508,10 +1506,107 @@ ol {
 }
 
 @media (min-width: 921px) {
+  html {
+    font-size: 18px;
+  }
+
+  body {
+    font-size: 1.18rem;
+  }
+
   .hero {
     align-items: center;
     padding-top: 6.2rem;
     padding-bottom: 2.2rem;
+  }
+
+  .site-header__link,
+  .eyebrow,
+  .form-card__eyebrow,
+  .info-card__label,
+  .countdown-card__label,
+  .hero__guest-label,
+  .field-label,
+  .form-card__group legend,
+  .venue-card__eyebrow,
+  .loading-screen__eyebrow {
+    font-size: 1.12rem;
+    letter-spacing: 0.14em;
+  }
+
+  .section-shell {
+    padding-block: 7rem;
+  }
+
+  .section-frame {
+    width: min(1240px, calc(100% - 72px));
+  }
+
+  .section-frame--narrow {
+    width: min(980px, calc(100% - 72px));
+  }
+
+  .section-heading {
+    margin-bottom: 3.2rem;
+  }
+
+  .section-heading__script {
+    font-size: 2.75rem;
+  }
+
+  .section-heading__description,
+  .hero__guest-text,
+  .venue-card__address,
+  .venue-route__note,
+  .program-item__note,
+  .gift-card__text,
+  .success-card__text,
+  .faq-card__panel,
+  .story-section__lead,
+  .story-copy__text,
+  .final-card__signature,
+  .status-note {
+    font-size: 1.36rem;
+    line-height: 1.72;
+  }
+
+  .info-card,
+  .venue-card,
+  .program-card,
+  .gift-card,
+  .form-card,
+  .success-card,
+  .final-card {
+    padding: 2.7rem;
+  }
+
+  .button {
+    min-height: 3.65rem;
+    padding-inline: 2.45rem;
+    font-size: 1.24rem;
+  }
+
+  .form-card__title {
+    font-size: clamp(2.6rem, 3.2vw, 3.35rem);
+  }
+
+  .option-card {
+    gap: 1.05rem;
+    padding: 1.15rem 1.25rem;
+  }
+
+  .option-card span,
+  .text-input,
+  .text-area {
+    font-size: 1.28rem;
+  }
+
+  .text-input {
+    min-height: 3.6rem;
+  }
+
+  .text-area {
+    min-height: 8rem;
   }
 
   .hero__content {
@@ -1533,7 +1628,7 @@ ol {
   }
 
   .venue-card {
-    width: min(100%, 35rem);
+    width: min(100%, 44rem);
   }
 
   .venue-card__sprig {
@@ -1544,6 +1639,22 @@ ol {
   .gift-card__image {
     width: min(17rem, 32vw);
     margin-bottom: 1.75rem;
+  }
+
+  .gift-card__quote {
+    font-size: clamp(3.2rem, 3.2vw, 4.5rem);
+  }
+
+  .program-item__title {
+    font-size: 1.38rem;
+  }
+
+  .program-item__time {
+    font-size: 2.45rem;
+  }
+
+  .faq-card__question {
+    font-size: clamp(1.75rem, 2.2vw, 2.25rem);
   }
 
   .dress-code-palette {
@@ -1567,8 +1678,8 @@ ol {
   }
 
   .hero__actions .button {
-    min-height: 3.15rem;
-    padding-inline: 1.85rem;
+    min-height: 3.55rem;
+    padding-inline: 2.35rem;
   }
 
   .hero__guest-card {
@@ -1584,6 +1695,20 @@ ol {
 
   .hero__corner {
     display: none;
+  }
+}
+
+@media (min-width: 1400px) {
+  html {
+    font-size: 20px;
+  }
+
+  .section-frame--narrow {
+    width: min(1080px, calc(100% - 96px));
+  }
+
+  .form-card {
+    padding: 3rem 3.25rem;
   }
 }
 
@@ -1622,8 +1747,8 @@ ol {
   }
 
   .site-header__link {
-    font-size: 0.68rem;
-    letter-spacing: 0.18em;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
     white-space: nowrap;
   }
 
