@@ -22,6 +22,10 @@ export function App() {
   const [isGuestLoading, setIsGuestLoading] = useState(() => Boolean(getGuestToken(window.location.search)));
   const [hasGuestLoadError, setHasGuestLoadError] = useState(false);
   const [isHeaderInHero, setIsHeaderInHero] = useState(true);
+  const countdownTargetDate =
+    guest.attendsCeremony && weddingDetails.ceremony?.time
+      ? withTime(weddingDetails.dateIso, weddingDetails.ceremony.time)
+      : weddingDetails.dateIso;
 
   useEffect(() => {
     const token = getGuestToken(window.location.search);
@@ -140,7 +144,7 @@ export function App() {
                 description="Нам важно, чтобы рядом были те, с кем можно смеяться, обниматься, танцевать и запоминать этот день маленькими счастливыми деталями."
               />
               <div id="countdown-title" className="sr-anchor" aria-hidden="true" />
-              <Countdown targetDate={weddingDetails.dateIso} />
+              <Countdown targetDate={countdownTargetDate} />
             </Reveal>
           </div>
         </section>
@@ -173,4 +177,15 @@ export function App() {
       </main>
     </div>
   );
+}
+
+function withTime(baseDateIso: string, time: string): string {
+  const match = baseDateIso.match(/^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}(.*)$/);
+
+  if (!match) {
+    return baseDateIso;
+  }
+
+  const [hours = "00", minutes = "00"] = time.split(":");
+  return `${match[1]}T${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00${match[2]}`;
 }
