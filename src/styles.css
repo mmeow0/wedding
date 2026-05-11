@@ -1,20 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant:wght@400&display=swap");
 
 @font-face {
-  font-family: "Apple Chancery";
-  src:
-    url("https://db.onlinewebfonts.com/t/596ad608a41bd28960c777827cdd6af1.woff2") format("woff2"),
-    url("https://db.onlinewebfonts.com/t/596ad608a41bd28960c777827cdd6af1.woff") format("woff"),
-    url("https://db.onlinewebfonts.com/t/596ad608a41bd28960c777827cdd6af1.ttf") format("truetype");
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Snell Roundhand W01 Script";
   src:
-    url("https://db.onlinewebfonts.com/t/f8deb3c1a029ec56b15bb462c1518f07.woff2") format("woff2"),
-    url("https://db.onlinewebfonts.com/t/f8deb3c1a029ec56b15bb462c1518f07.woff") format("woff"),
-    url("https://db.onlinewebfonts.com/t/f8deb3c1a029ec56b15bb462c1518f07.ttf") format("truetype");
+    url("/fonts/SnellRoundhandLTW01-Script/SnellRoundhandLTW01-Script.woff2") format("woff2"),
+    url("/fonts/SnellRoundhandLTW01-Script/SnellRoundhandLTW01-Script.ttf") format("truetype");
   font-display: swap;
 }
 
@@ -52,7 +42,7 @@
   --shadow-petal: 0 16px 40px -26px rgba(194, 139, 155, 0.8);
   --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
   --font-display: "Cormorant", "Times New Roman", serif;
-  --font-script: "Snell Roundhand W01 Script", "Apple Chancery", "Snell Roundhand", cursive;
+  --font-script: "Snell Roundhand W01 Script", "Snell Roundhand", "Apple Chancery", cursive;
   --font-body: "Quicksand", system-ui, sans-serif;
 }
 
